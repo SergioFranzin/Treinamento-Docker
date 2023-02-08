@@ -1,0 +1,68 @@
+sudo docker build -t mysql-image -f api/db/Dockerfile .
+
+docker image ls
+
+sudo docker run -d --rm --name mysql-container mysql-image
+
+docker ps
+
+sudo docker exec -i mysql-container mysql -uroot -psolution < api/db/script.sql
+
+sudo docker exec -it mysql-container bin/bash
+
+mysql -uroot -psolution
+
+use solution
+
+select * from products;
+
+exit
+
+exit
+
+docker stop mysql-container
+
+Utilizar a linha de baixo para corrigir o UTF-8: sudo docker run -d -v $PWD/api/db/data:/var/lib/mysql --rm --name mysql-container mysql-image
+
+sudo docker run -d -v $PWD/api/db/data:/var/lib/mysql -v $PWD/api/db/mycustom.cnf:/etc/mysql/conf.d/custom.cnf --rm --name mysql-container mysql-image
+
+sudo docker exec -i mysql-container mysql -uroot -psolution < api/db/script.sql
+
+docker inspect mysql-container
+
+sudo docker build -t flask-image -f api/src/Dockerfile .
+
+sudo docker run -d -p 9001:9001 --rm --name flask-container flask-image
+
+docker stop flask-container
+
+sudo docker run -d -p 9001:9001 --link mysql-container --rm --name flask-container flask-image
+
+sudo docker build -t html-image -f api/website/Dockerfile .
+
+sudo docker run -d -p 8888:80 --link flask-container --rm --name html-container html-image
+
+
+
+
+
+
+Extras:
+
+Mostra o IP do container: 
+docker inspect -f '{{ .NetworkSettings.Networks.bridge.IPAddress }}' nome_do_container
+
+Mostra as redes do docker:
+docker network ls
+
+Cria uma nova rede:
+docker network create --driver bridge nome_da_rede
+
+Conecta os container nas redes:
+docker network connect nome_da_rede nome_do_container
+
+Mostra as configurações da rede e quais containers estão atrelados a ela:
+docker network inspect nome_da_rede
+
+Remove a rede:
+docker network nome_da_rede

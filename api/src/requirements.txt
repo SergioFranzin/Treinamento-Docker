@@ -1,0 +1,5 @@
+Flask==2.1.2
+PyMySQL==1.0.2
+requests==2.22.0
+cryptography==38.0.1
+flask-cors==3.0.10

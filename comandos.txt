@@ -1,0 +1,5 @@
+docker inspect nome_do_container (mostra os dados do container como IP e portas)
+sudo docker ps -a (mostra todos os containers mesmo parados)
+sudo docker rm nome_do_container (remove o container)
+sudo docker images -a (mostras todas as images até as paradas)
+sudo docker rmi id_da_imagem (remove a imagem)
